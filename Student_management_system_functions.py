@@ -1,8 +1,3 @@
-# name = input("Enter your name: ")
-# age = int(input("Enter your age: "))
-# course= input("Enter your course: ")
-# marks = float(input("Enter your marks: "))
-
 students = [{
     "name": "Rahul",
     "age": 30,
@@ -70,43 +65,23 @@ def view_students():
         print(f"Marks: {student['marks']}\n")
 
 def search_student(name):
-    print("\nSearch Student:")
-    #search_name = input("To search student by name, enter the name of the student: ")
-    # found=False
     for student in students:
         if student['name'] == name:
-            print(f"Student found!")
-            # found=True
             return student
-            # break
     return None
         
-def update_student_marks(name):
-    # print("\nUpdate Student Marks:")
-    # update_name = input("Enter the name of the student whose marks you want to update: ")
-    # found = False
-    for student in students:
-        if student['name'] == name:
-            new_marks = float(input(f"Enter new marks for {name}: "))
-            student['marks'] = new_marks
-            print(f"Marks updated for {name}. New Marks: {new_marks}\n")
-            found = True
-            break
-    if not found:
-        print("Student not found.")
+def update_student_marks(student):
+    new_marks = float(input(f"Enter new marks for {student['name']}: "))
+    student['marks'] = new_marks
+    print(f"Marks updated for {student['name']}. New Marks: {new_marks}\n")
 
-def delete_student():
-    print("\nDelete Student:")
-    delete_name = input("To delete a student, enter the name of the student: ")
-    found = False
-    for student in students:
-        if student['name'] == delete_name:
-            students.remove(student)
-            print(f"Student {delete_name} has been deleted.\n")
-            found = True
-            break
-    if not found:
-        print("Student not found.")
+def delete_student(name):
+    student=search_student(name)
+    if student:
+        students.remove(student)
+        print(f"Student {name} has been deleted.\n")
+        return True
+    return False
 
 while True:
     display_menu()
@@ -131,15 +106,19 @@ while True:
 
     elif input_choice == "4":
         search_name = input("To search student by name, enter the name of the student: ")
-        find_stud = search_student(search_name)
-        if find_stud:
-            update_student_marks(search_name)
+        student = search_student(search_name)
+        if student:
+            update_student_marks(student)
         else:
             print("Student not found.")
 
     elif input_choice == "5":
-        delete_student()
-
+        deleting_student = input("To delete a student, enter the name of the student: ")
+        if delete_student(deleting_student):
+            print("Student deleted successfully.")
+        else:
+            print("Student not found.")
+  
     elif input_choice == "6":
         print("\nExiting the program.")
         exit()
