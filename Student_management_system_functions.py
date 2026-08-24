@@ -42,9 +42,9 @@ def display_menu():
 def add_student():
     print("\nAdd Student:")
     new_name = input("Enter name: ")
-    new_age = int(input("Enter age: "))
+    new_age = get_valid_age()
     new_course = input("Enter course: ")    
-    new_marks = float(input("Enter marks: "))
+    new_marks = get_valid_marks()
 
     new_student = {
         "name": new_name,
@@ -66,12 +66,12 @@ def view_students():
 
 def search_student(name):
     for student in students:
-        if student['name'] == name:
+        if student['name'].lower() == name.lower():
             return student
     return None
         
 def update_student_marks(student):
-    new_marks = float(input(f"Enter new marks for {student['name']}: "))
+    new_marks = get_valid_marks()
     student['marks'] = new_marks
     print(f"Marks updated for {student['name']}. New Marks: {new_marks}\n")
 
@@ -82,6 +82,28 @@ def delete_student(name):
         print(f"Student {name} has been deleted.\n")
         return True
     return False
+
+def get_valid_age():
+    while True:
+        try:
+            age = int(input("Enter age: "))
+            if age <= 0:
+                print("Age cannot be zero or negative. Please enter a valid age.")
+            else:
+                return age
+        except ValueError:
+            print("Invalid input. Please enter a valid integer for age.")
+
+def get_valid_marks():
+    while True:
+        try:
+            marks = float(input("Enter marks: "))
+            if marks < 0 or marks > 100:
+                print("Marks should be between 0 and 100. Please enter valid marks.")
+            else:
+                return marks
+        except ValueError:
+            print("Invalid input. Please enter a valid number for marks.")
 
 while True:
     display_menu()
