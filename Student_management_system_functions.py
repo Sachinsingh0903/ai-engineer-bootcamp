@@ -81,15 +81,15 @@ def search_student(name):
             # break
     return None
         
-def update_student_marks():
-    print("\nUpdate Student Marks:")
-    update_name = input("Enter the name of the student whose marks you want to update: ")
-    found = False
+def update_student_marks(name):
+    # print("\nUpdate Student Marks:")
+    # update_name = input("Enter the name of the student whose marks you want to update: ")
+    # found = False
     for student in students:
-        if student['name'] == update_name:
-            new_marks = float(input(f"Enter new marks for {update_name}: "))
+        if student['name'] == name:
+            new_marks = float(input(f"Enter new marks for {name}: "))
             student['marks'] = new_marks
-            print(f"Marks updated for {update_name}. New Marks: {new_marks}\n")
+            print(f"Marks updated for {name}. New Marks: {new_marks}\n")
             found = True
             break
     if not found:
@@ -130,7 +130,12 @@ while True:
             print("Student not found.")
 
     elif input_choice == "4":
-        update_student_marks()
+        search_name = input("To search student by name, enter the name of the student: ")
+        find_stud = search_student(search_name)
+        if find_stud:
+            update_student_marks(search_name)
+        else:
+            print("Student not found.")
 
     elif input_choice == "5":
         delete_student()
